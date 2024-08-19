@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from .validators import BurgerSchema
+from pytemplate.domain.validators import BurgerSchema
 
 
 @dataclass
@@ -15,5 +15,5 @@ class Burger:
 
 
 def burger_factory(bread: str, patty: str, sauce: str | None = None, toppings: list[str] | None = None) -> Burger:
-    BurgerSchema().load({"bread": bread, "patty": patty, "sauce": sauce, "toppings": toppings})
+    BurgerSchema().validate({"bread": bread, "patty": patty, "sauce": sauce, "toppings": toppings})
     return Burger(bread=bread, patty=patty, sauce=sauce, toppings=toppings)
