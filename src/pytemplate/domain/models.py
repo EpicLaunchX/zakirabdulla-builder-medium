@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 
+from marshmallow import ValidationError
+
 from pytemplate.domain.validators import BurgerSchema
 
 
@@ -15,5 +17,7 @@ class Burger:
 
 
 def burger_factory(bread: str, patty: str, sauce: str | None = None, toppings: list[str] | None = None) -> Burger:
-    BurgerSchema().validate({"bread": bread, "patty": patty, "sauce": sauce, "toppings": toppings})
+    errors = BurgerSchema().validate({"bread": bread, "patty": patty, "sauce": sauce, "toppings": toppings})
+    if errors:
+        raise ValidationError("Invalid burger")
     return Burger(bread=bread, patty=patty, sauce=sauce, toppings=toppings)

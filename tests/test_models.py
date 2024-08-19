@@ -1,5 +1,5 @@
+import marshmallow
 import pytest
-from marshmallow import ValidationError
 
 from src.pytemplate.domain.models import Burger, burger_factory
 
@@ -33,8 +33,8 @@ def test_burger_factory_valid():
 
 
 def test_burger_factory_invalid():
-    with pytest.raises(ValidationError):
-        burger_factory(bread="sesame", patty="beef", sauce="ketchup", toppings="lettuce,tomato")
+    with pytest.raises(marshmallow.ValidationError):
+        burger_factory(bread=1, patty="beef", sauce="ketchup", toppings="lettuce,tomato")
 
-    with pytest.raises(ValidationError):
+    with pytest.raises(marshmallow.ValidationError):
         burger_factory(bread="sesame", patty="beef", sauce="ketchup", toppings=["lettuce", 1])
