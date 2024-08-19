@@ -34,7 +34,7 @@ def test_burger_factory_valid():
 
 def test_burger_factory_invalid():
     with pytest.raises(ValidationError):
-        burger_factory(1, "beef", "ketchup", "lettuce,tomato")
+        burger_factory(bread="sesame", patty="beef", sauce="ketchup", toppings="lettuce,tomato")
 
     with pytest.raises(ValidationError):
-        burger_factory("sesame", "beef", 1, "lettuce,tomato")
+        burger_factory(bread="sesame", patty="beef", sauce="ketchup", toppings=["lettuce", 1])
