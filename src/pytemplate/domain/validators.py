@@ -1,9 +1,18 @@
 import marshmallow
-from marshmallow import fields, validate
 
 
 class BurgerSchema(marshmallow.Schema):
-    bread = fields.Str(required=True, validate=[validate.Length(min=1), validate.OneOf(["sesame", "potato", "wheat"])])
-    patty = fields.Str(required=True, validate=[validate.Length(min=1), validate.OneOf(["beef", "chicken", "veggie"])])
-    sauce = fields.Str(required=False)
-    toppings = fields.List(fields.String(), required=False)
+    bread = marshmallow.fields.Str(required=True)
+    patty = marshmallow.fields.Str(required=True)
+    sauce = marshmallow.fields.Str(required=False)
+    toppings = marshmallow.fields.List(marshmallow.fields.Str(), required=False)
+
+    @marshmallow.validates("bread")
+    def validate_bread(self, value):
+        if not value:
+            raise marshmallow.ValidationError("Bread is required")
+
+    @marshmallow.validates("patty")
+    def validate_patty(self, value):
+        if not value:
+            raise marshmallow.ValidationError("Patty is required")

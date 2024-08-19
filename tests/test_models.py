@@ -25,16 +25,35 @@ def test_create_burger_with_no_sauce():
     assert str(burger) == "sesame beef no sauce lettuce,tomato"
 
 
-def test_burger_factory_valid():
-    result = burger_factory(bread="sesame", patty="beef", sauce="ketchup", toppings=["lettuce", "tomato"])
-    assert result.bread == "sesame"
-    assert isinstance(result, Burger)
-    assert str(result) == "sesame beef ketchup lettuce,tomato"
+def test_burger_factory_valid_data():
+    data = {"bread": "sesame", "patty": "beef", "sauce": "ketchup", "toppings": ["lettuce", "tomato"]}
+    burger = burger_factory(data)
+    assert isinstance(burger, Burger)
+    assert str(burger) == "sesame beef ketchup lettuce,tomato"
+    assert burger.bread == "sesame"
+    assert burger.patty == "beef"
+    assert burger.sauce == "ketchup"
+    assert burger.toppings == ["lettuce", "tomato"]
 
 
-def test_burger_factory_invalid():
-    with pytest.raises(marshmallow.ValidationError):
-        burger_factory(bread=1, patty="beef", sauce="ketchup", toppings="lettuce,tomato")
+def test_burger_factory_missing_bread():
+    data = {"patty": "beef", "sauce": "ketchup", "toppings": ["lettuce", "tomato"]}
+    with pytest.raises(marshmallow.ValidationError) as e:
+        burger_factory(data)
 
-    with pytest.raises(marshmallow.ValidationError):
-        burger_factory(bread="sesame", patty="beef", sauce="ketchup", toppings=["lettuce", 1])
+
+def test_burger_factory_missing_patty():
+    data = {"bread": "sesame", "sauce": "ketchup", "toppings": ["lettuce", "tomato"]}
+    with pytest.raises(marshmallow.ValidationError) as e:
+        burger_factory(data)
+
+
+def test_burger_factory_optional_fields():
+    data = {"bread": "sesame", "patty": "beef"}
+    burger = burger_factory(data)
+    assert isinstance(burger, Burger)
+    assert str(burger) == "sesame beef no sauce no toppings"
+    assert burger.bread == "sesame"
+    assert burger.patty == "beef"
+    assert burger.sauce is None
+    assert burger.toppings is None
