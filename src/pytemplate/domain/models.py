@@ -19,6 +19,6 @@ class Burger:
 def burger_factory(data: dict) -> Burger:
     try:
         validated_data = BurgerSchema().load(data)
-    except marshmallow.ValidationError as e:
-        raise marshmallow.ValidationError(e.messages) from e
+    except marshmallow.ValidationError as err:
+        raise marshmallow.ValidationError(err.messages) from err
     return Burger(**validated_data)
