@@ -28,6 +28,7 @@ dev = [
     "pre-commit",
     "safety",
     "pip-audit",
+    "marshmallow == 3.21.3",
 ]
 test = [
     "pytest",
