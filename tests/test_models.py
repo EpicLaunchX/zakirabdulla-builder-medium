@@ -37,7 +37,7 @@ def test_burger_factory_valid_data():
 
 
 def test_burger_factory_missing_bread():
-    data = {"patty": "beef", "sauce": "ketchup", "toppings": ["lettuce", "tomato"]}
+    data = {"patty": "beef", "sauce": "ketchup", "toppings": ["lettuce", "cheese"]}
     with pytest.raises(marshmallow.ValidationError) as e:
         burger_factory(data)
 
