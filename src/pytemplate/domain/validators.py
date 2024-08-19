@@ -1,7 +1,8 @@
-from marshmallow import fields, Schema
+import marshmallow
+from marshmallow import fields
 
 
-class BurgerSchema(Schema):
+class BurgerSchema(marshmallow.Schema):
     bread = fields.String()
     patty = fields.String()
     sauce = fields.String(required=False)

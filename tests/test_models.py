@@ -26,7 +26,7 @@ def test_create_burger_with_no_sauce():
 
 
 def test_burger_factory_valid():
-    result = burger_factory("sesame", "beef", "ketchup", ["lettuce", "tomato"])
+    result = burger_factory(bread="sesame", patty="beef", sauce="ketchup", toppings=["lettuce", "tomato"])
     assert result.bread == "sesame"
     assert isinstance(result, Burger)
     assert str(result) == "sesame beef ketchup lettuce,tomato"
