@@ -27,7 +27,7 @@ def test_create_burger_with_no_sauce():
 
 def test_burger_factory_valid_data():
     data = {"bread": "sesame", "patty": "beef", "sauce": "ketchup", "toppings": ["lettuce", "tomato"]}
-    burger = burger_factory(data)
+    burger = burger_factory(**data)
     assert isinstance(burger, Burger)
     assert str(burger) == "sesame beef ketchup lettuce,tomato"
     assert burger.bread == "sesame"
@@ -39,18 +39,18 @@ def test_burger_factory_valid_data():
 def test_burger_factory_missing_bread():
     data = {"patty": "beef", "sauce": "ketchup", "toppings": ["lettuce", "cheese"]}
     with pytest.raises(marshmallow.ValidationError) as e:
-        burger_factory(data)
+        burger_factory(**data)
 
 
 def test_burger_factory_missing_patty():
     data = {"bread": "sesame", "sauce": "ketchup", "toppings": ["lettuce", "tomato"]}
     with pytest.raises(marshmallow.ValidationError) as e:
-        burger_factory(data)
+        burger_factory(**data)
 
 
 def test_burger_factory_optional_fields():
     data = {"bread": "sesame", "patty": "beef"}
-    burger = burger_factory(data)
+    burger = burger_factory(**data)
     assert isinstance(burger, Burger)
     assert str(burger) == "sesame beef no sauce no toppings"
     assert burger.bread == "sesame"

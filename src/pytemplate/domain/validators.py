@@ -4,8 +4,8 @@ import marshmallow
 class BurgerSchema(marshmallow.Schema):
     bread = marshmallow.fields.Str(required=True)
     patty = marshmallow.fields.Str(required=True)
-    sauce = marshmallow.fields.Str(required=False)
-    toppings = marshmallow.fields.List(marshmallow.fields.Str(), required=False)
+    sauce = marshmallow.fields.Str(required=False, allow_none=True)
+    toppings = marshmallow.fields.List(marshmallow.fields.Str(), required=False, allow_none=True)
 
     @marshmallow.validates("bread")
     def validate_bread(self, value):

@@ -31,4 +31,4 @@ def test_burger_schema_optional_fields():
     try:
         validated_data = BurgerSchema().load(data)
     except marshmallow.ValidationError as e:
-        pytest.fail(f"Validation error: {e.messages}")
+        pytest.fail("ValidationError raised unexpectedly!")
